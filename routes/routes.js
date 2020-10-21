@@ -8,5 +8,13 @@ module.exports = function(app) {
   app.post("/example", async (req, res) => {
     company.example(req, res)
   })
+  
+  app.post("/register/company", async(req, res) =>{
+    company.register(req, res);
+    res.send();
+  })
+  app.get("/login", async(req, res)=>{
+    company.login(req, res)
+  })
 
 }
