@@ -14,4 +14,5 @@ app.use(express.urlencoded({ extended: true }))
 require('./routes/routes')(app)
 
 // listen on the port
+console.log("Listening on port", port)
 app.listen(port)

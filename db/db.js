@@ -16,7 +16,7 @@ module.exports = {
     let sql = 'SELECT * FROM `person` WHERE `username` = ? AND `password` = ?'
     let con = await mysqlprom.createConnection(connData)
     let [rows, fields] = await con.execute(sql, [username, password])
-    await con.end();
+    await con.end()
     return rows
   }
 };

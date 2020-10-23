@@ -13,7 +13,8 @@ module.exports = function(app) {
     company.register(req, res);
     res.send();
   })
-  app.get("/login", async(req, res)=>{
+  
+  app.post("/login", async(req, res)=>{
     company.login(req, res)
   })
 
