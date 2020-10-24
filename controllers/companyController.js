@@ -22,9 +22,22 @@ module.exports = {
 
   registerPerson: async(req, res) => {
     try {
-      let results = await db.registerPerson(req.body.type, req.body.username,
-                      req.body.password, req.body.company_id, req.body.email, req.body.access_level)
-      res.status(200).send({status: 200})
+      let company_id =null
+      if(req.body.company_name !== undefined){
+        console.log("Need to create a new company")
+        company_id = await db.getCompanyFromName(req.body.company_name)
+        if(company_id == undefined){
+          await db.registerCompany(req.body.company_name, null, 0)
+          company_id = await db.getCompanyFromName(req.body.company_name)
+        }
+      }
+      let persInsert = await db.registerPerson(req.body.type, req.body.username,
+                      req.body.password, company_id.id, req.body.access_level)
+      let infoInsert = await db.insertPersonInfo(req.body.email, req.body.address, req.body.phone)
+      res.status(200).send({
+        user: req.body.username,
+        access_level: req.body.access_level
+        })
     } catch (err) {
       res.status(400).send({"error": "Could not register person"})
     }

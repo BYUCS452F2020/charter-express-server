@@ -6,10 +6,6 @@ module.exports = function(app) {
     res.send(`Hi! Server is listening`);
   })
 
-  app.post("/example", async (req, res) => {
-    company.example(req, res)
-  })
-
   app.post("/register/company", async(req, res) =>{
     company.registerCompany(req, res);
   })
