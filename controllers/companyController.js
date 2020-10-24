@@ -22,14 +22,16 @@ module.exports = {
 
   registerPerson: async(req, res) => {
     try {
-      let company_id =null
-      if(req.body.company_name !== undefined){
+      let company_id = null
+      if(req.body.company_name !== null){
         console.log("Need to create a new company")
         company_id = await db.getCompanyFromName(req.body.company_name)
         if(company_id == undefined){
           await db.registerCompany(req.body.company_name, null, 0)
           company_id = await db.getCompanyFromName(req.body.company_name)
         }
+      }else{
+        company_id={id: null}
       }
       let persInsert = await db.registerPerson(req.body.type, req.body.username,
                       req.body.password, company_id.id, req.body.access_level)
