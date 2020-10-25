@@ -5,9 +5,20 @@ module.exports = {
   login: async(req, res) => {
     try{
       let results = await db.getPerson(req.body.username, req.body.password)
-      res.status(200).send({username: results[0].username, access_level: results[0].access_level})
+      let company = await db.getCompany(results[0].company_id)
+      res.status(200).send({username: results[0].username, access_level: results[0].access_level, company: company})
     } catch (err){
       res.status(400).send({"error": "Could not log user in"})
+    }
+  },
+//This should go in the charter controller
+  getLocations: async(req, res) => {
+    try{
+      let results = await db.getLocations()
+      res.status(200).send({results})
+    }catch (err) {
+      console.log(err)
+      res.status(400).send({"error": "Could not get locations"})
     }
   },
 
@@ -22,23 +33,24 @@ module.exports = {
 
   registerPerson: async(req, res) => {
     try {
-      let company_id = null
+      let company = null
       if(req.body.company_name !== null){
         console.log("Need to create a new company")
-        company_id = await db.getCompanyFromName(req.body.company_name)
-        if(company_id == undefined){
+        company = await db.getCompanyFromName(req.body.company_name)
+        if(company == undefined){
           await db.registerCompany(req.body.company_name, null, 0)
-          company_id = await db.getCompanyFromName(req.body.company_name)
+          company = await db.getCompanyFromName(req.body.company_name)
         }
       }else{
-        company_id={id: null}
+        company={id: null}
       }
       let persInsert = await db.registerPerson(req.body.type, req.body.username,
-                      req.body.password, company_id.id, req.body.access_level)
+                      req.body.password, company.id, req.body.access_level)
       let infoInsert = await db.insertPersonInfo(req.body.email, req.body.address, req.body.phone)
       res.status(200).send({
-        user: req.body.username,
-        access_level: req.body.access_level
+        username: req.body.username,
+        access_level: req.body.access_level,
+        company: company
         })
     } catch (err) {
       res.status(400).send({"error": "Could not register person"})

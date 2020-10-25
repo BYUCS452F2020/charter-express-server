@@ -22,4 +22,8 @@ module.exports = function(app) {
     charter.submitCharter(req, res)
   })
 
+  app.get("/locations", async(req, res) => {
+    company.getLocations(req, res)
+  })
+
 }

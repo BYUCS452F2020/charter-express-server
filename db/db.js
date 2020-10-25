@@ -1,4 +1,4 @@
-const mysqlprom = require('mysql2/promise');
+const mysqlprom = require('mysql2/promise')
 const bluebird = require('bluebird')
 
 const connData = {
@@ -24,7 +24,24 @@ module.exports = {
     let sql = 'SELECT * FROM company WHERE name = ?'
     let con = await mysqlprom.createConnection(connData)
     let [rows, fields] = await con.execute(sql, [company_name])
+    await con.end()
     return rows[0]
+  },
+
+  async getCompany(company_id){
+    let sql = 'SELECT * FROM company WHERE id = ?'
+    let con = await mysqlprom.createConnection(connData)
+    let [rows, __] = await con.execute(sql, [company_id])
+    await con.end()
+    return rows[0]
+  },
+
+  async getLocations(){
+    let sql = 'SELECT * FROM location'
+    let con = await mysqlprom.createConnection(connData)
+    let [rows, __] = await con.execute(sql)
+    await con.end()
+    return rows
   },
 
   async registerCompany(name, type, level) {
