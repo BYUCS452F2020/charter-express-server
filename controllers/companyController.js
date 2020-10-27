@@ -11,21 +11,12 @@ module.exports = {
       res.status(400).send({"error": "Could not log user in"})
     }
   },
-//This should go in the charter controller
-  getLocations: async(req, res) => {
-    try{
-      let results = await db.getLocations()
-      res.status(200).send({results})
-    }catch (err) {
-      console.log(err)
-      res.status(400).send({"error": "Could not get locations"})
-    }
-  },
+
 
   registerCompany: async(req, res) => {
     try {
       let results = await db.registerCompany(req.body.name, req.body.type, req.body.level)
-      res.status(200).send({status: 200})
+      res.status(200).send({results})
     } catch (err) {
       res.status(400).send({"error": "Could not register company"})
     }
