@@ -23,7 +23,15 @@ module.exports = function(app) {
   })
 
   app.get("/locations", async(req, res) => {
-    company.getLocations(req, res)
+    charter.getLocations(req, res)
+  })
+
+  app.get("/charters", async(req, res) => {
+    charter.getCharters(req, res)
+  })
+
+  app.get("/charters/:id", async(req, res) => {
+    charter.getCharter(req, res)
   })
 
 }

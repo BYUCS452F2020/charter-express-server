@@ -12,7 +12,6 @@ module.exports = {
     }
   },
 
-
   registerCompany: async(req, res) => {
     try {
       let results = await db.registerCompany(req.body.name, req.body.type, req.body.level)
