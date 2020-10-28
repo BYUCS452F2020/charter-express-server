@@ -27,11 +27,10 @@ module.exports = function(app) {
   })
 
   app.get("/charters", async(req, res) => {
-    charter.getCharters(req, res)
+    charter.getCharter(req, res)
   })
 
   app.get("/charters/:id", async(req, res) => {
     charter.getCharter(req, res)
   })
-
 }

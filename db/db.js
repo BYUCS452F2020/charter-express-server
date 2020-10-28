@@ -83,5 +83,22 @@ module.exports = {
     let result = await con.execute(sql, [email, address, phone])
     await con.end()
     return result
+  },
+
+  async getCharter(id) {
+    if (typeof id !== 'undefined') {
+      let sql = 'SELECT * FROM charter WHERE id = ?'
+      let con = await mysqlprom.createConnection(connData)
+      let [rows, fields] = await con.execute(sql, [id])
+      await con.end()
+      return rows[0]
+
+    } else {
+      let sql = 'SELECT * FROM charter'
+      let con = await mysqlprom.createConnection(connData)
+      let [rows, __] = await con.execute(sql)
+      await con.end()
+      return rows
+    }
   }
 };
