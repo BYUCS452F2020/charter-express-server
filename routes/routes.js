@@ -1,5 +1,5 @@
-const company = require('../controllers/companyController')
-const charter = require('../controllers/charterController')
+const company = require('../controllers/companyControllerMongo')
+const charter = require('../controllers/charterControllerMongo')
 
 module.exports = function(app) {
   app.get("/", (req, res) => {
