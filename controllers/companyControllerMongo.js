@@ -49,8 +49,8 @@ module.exports = {
   
   getCompanyById: async (req, res) => {
     try {
-      let results = await db.getCompany(req.params.id)
-      res.status(200).send({results})
+      let results = await db.getCompany(parseInt(req.params.id))
+      res.status(200).send({company: results})
     } catch (err) {
       res.status(400).send({"error": "Could not find company"})
     }
