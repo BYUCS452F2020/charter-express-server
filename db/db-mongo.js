@@ -26,6 +26,7 @@ module.exports = {
   async getCompany(company_id){
     var db = mongoUtil.getDb();
     var collection = db.collection("company");
+    console.log(company_id)
     var company = await collection.findOne({id: company_id})
     .then(company => {
       return company
@@ -68,11 +69,11 @@ module.exports = {
     })
   },
 
-  async submitCharter(start_date, end_date, company_id, seats_available, cost) {
+  async submitCharter(title, start_date, end_date, company_id, seats_available, cost) {
     var db = mongoUtil.getDb();
     var collection = db.collection("charter");
     return new Promise(function(resolve, reject) {
-      collection.insertOne({start_date: start_date, end_date: end_date, seats_available: seats_available, company_id: company_id, cost: cost}, (err, result) => {
+      collection.insertOne({title: title, start_date: start_date, end_date: end_date, seats_available: seats_available, company_id: company_id, cost: cost}, (err, result) => {
         if (err) reject(err);
         console.log(result)
         return resolve(result)
