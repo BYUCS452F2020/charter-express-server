@@ -20,9 +20,18 @@ module.exports = {
     }
   },
 
-  getCharter: async(req, res) => {
+  getAllCharters: async(req, res) => {
     try {
       let results = await db.getCharter(req.params.id)
+      res.status(200).send({results})
+    } catch (err) {
+      res.status(400).send({"error": "Could not get locations"})
+    }
+  },
+
+  getCharter: async(req, res) => {
+    try {
+      let results = await db.getCharter(parseInt(req.params.id))
       res.status(200).send({results})
     } catch (err) {
       res.status(400).send({"error": "Could not get locations"})

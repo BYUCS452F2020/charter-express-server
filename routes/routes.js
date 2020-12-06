@@ -27,15 +27,15 @@ module.exports = function(app) {
   })
 
   app.get("/charters", async(req, res) => {
-    charter.getCharter(req, res)
+    charter.getAllCharters(req, res)
   })
 
   app.get("/charters/:id", async(req, res) => {
     charter.getCharter(req, res)
   })
-  
+
   app.get("/company/:id", async(req, res) => {
     company.getCompanyById(req, res)
   })
-  
+
 }
